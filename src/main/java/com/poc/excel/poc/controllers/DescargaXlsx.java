@@ -28,17 +28,14 @@ public class DescargaXlsx {
 	@PostMapping("/repo")
 	public ResponseEntity<Object> getCatalogValues(@RequestBody DataReport bs)  {	
 		GenerateReport r = new GenerateReport();
+		InputStreamResource resource = null;
+		File f = null;
+		
 		try {
 			r.getReport(bs.getGrafica());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		File f = new File("src/main/resources/reports.xlsx");
-		InputStreamResource resource = null;
-		try {
+		    f = new File("src/main/resources/reports.xlsx");
 			resource = new InputStreamResource(new FileInputStream(f));
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		HttpHeaders ht = new HttpHeaders();
